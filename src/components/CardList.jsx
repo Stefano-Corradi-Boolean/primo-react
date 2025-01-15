@@ -12,6 +12,17 @@ const colors = [
 const CardList = () => {
   return (
     <>
+
+      <div className="d-flex flex-wrap">
+        {colors.map(item => (
+          <div className="sc-card" key={`card1-${item.id}`}>
+            <h4>{item.color}</h4>
+            <p>{item.description}</p>
+          </div>
+        ))}
+      </div>
+
+
       <div className="d-flex flex-wrap">
         {colors.map(item => (
           <ColorCard
