@@ -1,5 +1,7 @@
+import colibri from '../assets/img/colibri.jpg'
 
 const miaClasse = "main-paragraph";
+
 
 const Main = (props) => {
 
@@ -44,7 +46,13 @@ const Main = (props) => {
       </section>
 
       <div>
+        <h3>Immagine in public</h3>
         <img src="/img/bosco.jpg" alt="" />
+      </div>
+
+      <div>
+        <h3>Immagine in asset</h3>
+        <img src={colibri} alt="" />
       </div>
 
     </main>

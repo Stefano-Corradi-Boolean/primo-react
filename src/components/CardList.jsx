@@ -1,4 +1,5 @@
 import ColorCard from "./ColorCard"
+import ColorCardChildren from "./ColorCardChildren"
 
 const colors = [
   { id: 1, color: 'rosso', description: 'Il color del fuoco' },
@@ -10,15 +11,26 @@ const colors = [
 
 const CardList = () => {
   return (
-    <div className="d-flex flex-wrap">
-      {colors.map(item => (
-        <ColorCard
-          key={`card-${item.id}`}
-          colore={item.color}
-          descrizione={item.description}
-        />
-      ))}
-    </div>
+    <>
+      <div className="d-flex flex-wrap">
+        {colors.map(item => (
+          <ColorCard
+            key={`card-${item.id}`}
+            colore={item.color}
+            descrizione={item.description}
+          />
+        ))}
+      </div>
+
+      <div className="d-flex flex-wrap">
+        {colors.map(item => (
+          <ColorCardChildren key={`cardc-${item.id}`}>
+            <h4>{item.id} - {item.color}</h4>
+            <p>{item.description}</p>
+          </ColorCardChildren>
+        ))}
+      </div>
+    </>
   )
 }
 
