@@ -83,3 +83,11 @@ img {
   font-size: 1.4rem;
   cursor: pointer;
 }
+
+.trash {
+  cursor: pointer;
+
+  &:hover {
+    color: red;
+  }
+}
