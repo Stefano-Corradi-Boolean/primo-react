@@ -1,10 +1,11 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 const FormPro = () => {
 
   const defaultFormData = {
     firstname: '',
     lastname: '',
+    age: 18,
     authorize: false
   }
 
@@ -13,11 +14,14 @@ const FormPro = () => {
   const handlerSubmit = (e) => {
     e.preventDefault()
     console.log(formData);
+    // logica di invio del forms....
+    //....
 
+    // resetto il form
+    setFormData(defaultFormData);
   }
 
   const handlerChange = (e) => {
-    console.log(e.target);
 
     let { name, value, type, checked } = e.target;
     value = type === 'checkbox' ? checked : value;
@@ -27,6 +31,18 @@ const FormPro = () => {
       [name]: value
     })
   }
+
+  useEffect(() => {
+    if (formData.age < 18) {
+      alert('Devi essere naggiorenne!')
+    }
+  }, [formData.age])
+
+  // eseguito al montaggio del componente
+  useEffect(() => {
+    console.log('il ciclo di vita è stato montato');
+
+  }, [])
 
   return (
     <div className="container my-5">
@@ -50,6 +66,14 @@ const FormPro = () => {
               value={formData.lastname}
               onChange={handlerChange}
               type="text"
+            />
+            <input
+              className="form-control mb-3"
+              placeholder="Età"
+              name="age"
+              value={formData.age}
+              onChange={handlerChange}
+              type="number"
             />
 
             <div className="form-check">

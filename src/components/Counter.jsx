@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Counter = () => {
 
@@ -7,6 +7,13 @@ const Counter = () => {
   const handleIncrement = () => {
     setCount(count + 1)
   }
+
+
+  // metto in ascolto ad ogni cambiamento delle state count
+  useEffect(() => {
+    console.log('count è cambiato');
+
+  }, [count])
 
 
   return (

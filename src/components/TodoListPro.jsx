@@ -11,17 +11,23 @@ const tasks = [
   { id: 10, text: "Build a complex React project" }
 ];
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 const TodoListPro = () => {
 
+  const initialTask = { text: '' };
+
   const [todoList, setTodoList] = useState(tasks);
-  const [newTask, setNewTask] = useState({ text: '' });
+  const [filteredList, setFilteredList] = useState(tasks);
+  const [newTask, setNewTask] = useState(initialTask);
+  const [editTask, setEditTask] = useState(initialTask);
   const [search, setSearch] = useState('')
+  const [isEditMode, setIsEditMode] = useState(false);
 
   const handlerSubmit = (e) => {
     e.preventDefault();
     // creo un clone e della todoList e aggiungo il nuovo elemento
     setTodoList([newTask, ...todoList])
+    setNewTask(initialTask)
   }
 
   const handlerNewTask = (e) => {
@@ -37,38 +43,47 @@ const TodoListPro = () => {
     setTodoList(newTaskList)
   }
 
-  const handlerSearch = (e) => {
-    e.preventDefault()
-    const newTodoList = todoList.filter(task => task.text.toLowerCase().includes(search.toLowerCase()));
-    setTodoList(newTodoList)
+  useEffect(() => {
+    setFilteredList(todoList.filter(task => task.text.toLowerCase().includes(search.toLowerCase())))
+  }, [search, todoList])
+
+  const hamdlerSubmitEdit = (e) => {
+    e.preventDefault();
+    // logica di edit....
+    console.log(editTask);
+    const newTodoList = todoList.map(task => editTask.id == task.id ? editTask : task);
+    setTodoList(newTodoList);
+    // nascondo il form di edit
+    setIsEditMode(false)
+  }
+
+  const handlerEditTask = (e) => {
+    setEditTask({ ...editTask, text: e.target.value })
+  }
+
+  const handlerSetEditTask = (id) => {
+    const taskToEdit = todoList.find(task => task.id == id)
+    setEditTask(taskToEdit);
+    setIsEditMode(true)
   }
 
 
   return (
     <div className="container my-5">
-
-      <form action="" onSubmit={handlerSearch}>
-        <div className="input-group mb-3">
-          <input
-            className="form-control"
-            placeholder="Cerca"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            type="text"
-          />
-          <button
-            className="btn btn-outline-secondary"
-            type="submit"
-          >cerca</button>
-        </div>
-
-      </form>
-
+      {/* SEARCH  */}
+      <input
+        className="form-control my-3"
+        placeholder="Cerca"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        type="text"
+      />
+      {/* CREATE */}
       <form action="#" onSubmit={handlerSubmit}>
         <div className="input-group mb-3">
           <input
             className="form-control"
-            placeholder="Todo"
+            placeholder="Nuovo Todo"
             value={newTask.text}
             onChange={handlerNewTask}
             type="text"
@@ -80,14 +95,37 @@ const TodoListPro = () => {
         </div>
       </form>
 
+      {/* EDIT  */}
+      {isEditMode && (<form action="#" onSubmit={hamdlerSubmitEdit} >
+        <div className="input-group mb-3">
+          <input
+            className="form-control"
+            placeholder="Modifica Todo"
+            value={editTask.text}
+            onChange={handlerEditTask}
+            type="text"
+          />
+          <button
+            className="btn btn-outline-secondary"
+            type="submit"
+          >Modifica</button>
+        </div>
+      </form>)}
+
       <ul className="list-group">
-        {todoList.map(task => (
+        {filteredList.map(task => (
           <li key={task.id} className="list-group-item d-flex justify-content-between">
             <span>{task.text}</span>
-            <i
-              className="fa-solid fa-trash-can trash"
-              onClick={() => hadlerRemoveTask(task.id)}
-            ></i>
+            <div>
+              <i
+                className="fa-solid fa-pencil me-2"
+                onClick={() => handlerSetEditTask(task.id)}
+              ></i>
+              <i
+                className="fa-solid fa-trash-can trash"
+                onClick={() => hadlerRemoveTask(task.id)}
+              ></i>
+            </div>
           </li>
 
         ))}

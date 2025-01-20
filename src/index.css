@@ -84,7 +84,8 @@ img {
   cursor: pointer;
 }
 
-.trash {
+.trash,
+.fa-pencil {
   cursor: pointer;
 
   &:hover {
