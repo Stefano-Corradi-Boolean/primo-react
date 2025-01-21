@@ -1,23 +1,46 @@
-import Header from './components/Header'
-import Main from './components/Main'
-import Footer from './components/Footer'
-import List from './components/List'
-import CardList from './components/CardList'
-import Counter from './components/Counter'
-import CounterPro from './components/CounterPro'
-import CounterProPro from './components/CounterProPro'
-import AccordionBase from './components/AccordionBase/Accordion'
-import AccordionPro from './components/AccordionPro/Accordion'
-import FormBase from './components/FormBase'
-import FormPro from './components/FormPro'
-import TodoListVBase from './components/TodoListVBase'
-import TodoListPro from './components/TodoListPro'
-import Clock from './components/Clock'
-import MouseTriler from './components/MouseTriler'
+import { useState } from 'react';
+import Header from './components/Header';
+import Main from './components/Main';
+import Footer from './components/Footer';
+import List from './components/List';
+import CardList from './components/CardList';
+import Counter from './components/Counter';
+import CounterPro from './components/CounterPro';
+import CounterProPro from './components/CounterProPro';
+import AccordionBase from './components/AccordionBase/Accordion';
+import AccordionPro from './components/AccordionPro/Accordion';
+import FormBase from './components/FormBase';
+import FormPro from './components/FormPro';
+import TodoListVBase from './components/TodoListVBase';
+import TodoListPro from './components/TodoListPro';
+import Clock from './components/Clock';
+import MouseTriler from './components/MouseTriler';
+import FormPosts from './components/FormPosts';
+import RickMorty from './components/RickMorty';
 
-const testoLorem = "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aspernatur enim ullam in ab, quidem saepe dolores ut atque vero excepturi non eligendi consequuntur, accusantium est beatae quo nihil sunt iste!"
 
-import { useState } from 'react'
+const testoLorem = "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aspernatur enim ullam in ab, quidem saepe dolores ut atque vero excepturi non eligendi consequuntur, accusantium est beatae quo nihil sunt iste!";
+
+const componentsMap = {
+  header: <Header />,
+  main: <Main titolo="Questo titolo è una props" testo={testoLorem} />,
+  footer: <Footer />,
+  list: <List />,
+  cardlist: <CardList />,
+  counter: <Counter />,
+  counterpro: <CounterPro />,
+  counterpropro: <CounterProPro />,
+  accordionbase: <AccordionBase />,
+  accordionpro: <AccordionPro />,
+  todobase: <TodoListVBase />,
+  todopro: <TodoListPro />,
+  formbase: <FormBase />,
+  formpro: <FormPro />,
+  clock: <Clock />,
+  mousetrailer: <MouseTriler />,
+  formposts: <FormPosts />,
+  rickmorty: <RickMorty />,
+};
 
 const showComponents = [
   { id: 1, show: 'header', description: 'Componente Header' },
@@ -36,51 +59,32 @@ const showComponents = [
   { id: 14, show: 'formpro', description: 'Componente avanzato FormPro' },
   { id: 15, show: 'clock', description: 'Componente Clock' },
   { id: 16, show: 'mousetrailer', description: 'Cooridnate Mouse' },
+  { id: 17, show: 'formposts', description: 'Form Posts' },
+  { id: 18, show: 'rickmorty', description: 'Rick & Morty' },
 ];
 
 const App = () => {
-
-  const [show, setShow] = useState('todopro')
+  const [show, setShow] = useState('todopro');
 
   return (
     <>
-
       <div className="container my-5">
         <select
           className="form-select"
-          onChange={(e) => setShow(e.target.value)} defaultValue={show}
+          onChange={(e) => setShow(e.target.value)}
+          defaultValue={show}
         >
-          {showComponents.map(item => (
-            <option
-              key={item.id}
-              value={item.show}
-            >
+          {showComponents.map((item) => (
+            <option key={item.id} value={item.show}>
               {item.description}
             </option>
-
           ))}
         </select>
       </div>
 
-      {show == 'header' && <Header />}
-      {show == 'main' && <Main titolo="Questo titolo è una props" testo={testoLorem} />}
-      {show == 'footer' && <Footer />}
-      {show == 'list' && <List />}
-      {show == 'cardlist' && <CardList />}
-      {show == 'counter' && <Counter />}
-      {show == 'counterpro' && <CounterPro />}
-      {show == 'counterpropro' && <CounterProPro />}
-      {show == 'accordionbase' && <AccordionBase />}
-      {show == 'accordionpro' && <AccordionPro />}
-      {show == 'todobase' && <TodoListVBase />}
-      {show == 'todopro' && <TodoListPro />}
-      {show == 'formbase' && <FormBase />}
-      {show == 'formpro' && <FormPro />}
-      {show == 'clock' && <Clock />}
-      {show == 'mousetrailer' && <MouseTriler />}
-
+      {componentsMap[show]}
     </>
-  )
-}
+  );
+};
 
 export default App;
