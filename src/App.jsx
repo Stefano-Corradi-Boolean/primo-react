@@ -17,6 +17,7 @@ import Clock from './components/Clock';
 import MouseTriler from './components/MouseTriler';
 import FormPosts from './components/FormPosts';
 import RickMorty from './components/RickMorty';
+import Pizze from './components/Pizze';
 
 
 const testoLorem = "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aspernatur enim ullam in ab, quidem saepe dolores ut atque vero excepturi non eligendi consequuntur, accusantium est beatae quo nihil sunt iste!";
@@ -40,6 +41,7 @@ const componentsMap = {
   mousetrailer: <MouseTriler />,
   formposts: <FormPosts />,
   rickmorty: <RickMorty />,
+  pizze: <Pizze />,
 };
 
 const showComponents = [
@@ -61,6 +63,7 @@ const showComponents = [
   { id: 16, show: 'mousetrailer', description: 'Cooridnate Mouse' },
   { id: 17, show: 'formposts', description: 'Form Posts' },
   { id: 18, show: 'rickmorty', description: 'Rick & Morty' },
+  { id: 19, show: 'pizze', description: 'Gestione pizze' },
 ];
 
 const App = () => {
